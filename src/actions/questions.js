@@ -32,9 +32,9 @@ export function startAnswerPoll({user, questionId, answer}) {
 export function startAddQuestion(data) {
     return (dispatch, getState) => {
         const { select1, select2 } = data;
-        const { user } = getState();
+        const { loggedInUser } = getState();
 
-        return saveQuestion({select1, select2, author: user})
+        return saveQuestion({select1, select2, author: loggedInUser})
             .then((question) => dispatch(addQuestion(question)));
 
     }
@@ -42,11 +42,13 @@ export function startAddQuestion(data) {
 
 export function startAddAnswer(questionId, answer) {
     return (getState, dispatch) => {
-        const user = { getState };
+        const loggedInUser = { getState };
 
-        dispatch(startAnswerPoll({user, questionId, answer}));
+        dispatch(startAnswerPoll({loggedInUser, questionId, answer}));
 
-        return saveQuestionAnswer({user, questionId, answer})
+        return saveQuestionAnswer({loggedInUser, questionId, answer}).catch((e) => {
+            console.log('error?', e);
+        })
 
     }
 }

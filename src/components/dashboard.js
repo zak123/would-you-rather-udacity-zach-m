@@ -23,9 +23,12 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps ({ users }) {
+function mapStateToProps ({ users, questions }) {
+
+
     return {
         usersLocal: users
+
     }
 }
 export default connect(mapStateToProps)(Dashboard)
