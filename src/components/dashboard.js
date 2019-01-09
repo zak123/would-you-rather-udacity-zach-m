@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Panel,  } from "react-bootstrap";
 import {User} from './user'
 import Login from './login';
 

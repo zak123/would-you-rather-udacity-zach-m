@@ -48,6 +48,9 @@ const ProfileCard = (props) => {
 }
 
 function mapStateToProps(questions) {
+
+
+
     return {
         questions
     }

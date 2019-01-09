@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 
-import {Navbar, NavItem, Nav, NavDropdown, MenuItem} from "react-bootstrap";
+import {Navbar, NavItem, Nav} from "react-bootstrap";
 
 const authLinks = () => {
     return (
@@ -31,9 +31,9 @@ const NavBar = (props) => {
     )
 }
 
-function mapStateToProps({loggedInUser, users}) {
+function mapStateToProps({loggedInUser}) {
     return {
-        loggedInUser: loggedInUser === null ? null : { ...users[loggedInUser] }
+        loggedInUser: loggedInUser !== null
     }
 }
 
