@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Panel } from "react-bootstrap";
+import { Panel,  } from "react-bootstrap";
+import {User} from './user'
+import Login from './login';
 
 
 class Dashboard extends Component {
 
     render() {
-
         console.log(this.props);
-        const { usersLocal } = this.props;
+
 
         return (
             <div>
-                {Object.keys(usersLocal).map((user) => (
-                    <Panel style={{margin: 20}} key={usersLocal[user].id}>
-                        <Panel.Heading>{usersLocal[user].name}</Panel.Heading>
-                        <Panel.Body>Answered polls</Panel.Body>
-                    </Panel>
+                <div>
+                    <Login/>
+                </div>
+                <div>
+                {Object.keys(this.props.users).map((user) => (
+                    <User user={this.props.users[user]} questions={this.props.questions}/>
                 ))}
+                </div>
             </div>
         )
     }
@@ -27,7 +30,8 @@ function mapStateToProps ({ users, questions }) {
 
 
     return {
-        usersLocal: users
+        users: users,
+        questions: questions
 
     }
 }

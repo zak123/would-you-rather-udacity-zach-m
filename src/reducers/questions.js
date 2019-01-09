@@ -12,7 +12,7 @@ export default function questions (state = {}, action) {
                 ...state,
                 [action.question.id]: action.question,
 
-            }
+            };
         case ANSWER_POLL :
             return {
                 ...state,
@@ -24,7 +24,7 @@ export default function questions (state = {}, action) {
 
                     }
                 }
-            }
+            };
 
         default :
             return state

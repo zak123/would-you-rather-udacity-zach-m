@@ -5,6 +5,7 @@ import Login from "./components/login"
 import { connect } from 'react-redux';
 import {handleInitialData} from "./actions/shared";
 import './App.css';
+import NavBar from './components/nav';
 
 class App extends Component {
   componentDidMount() {
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <Router>
         <Fragment>
+            <NavBar/>
           <Switch>
               <Route path='/' component={Dashboard} />
           </Switch>

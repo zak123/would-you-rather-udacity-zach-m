@@ -14,7 +14,7 @@ export default function users (state = {}, action) {
                 [action.loggedInUser] : {
 
                 }
-            }
+            };
         case ADD_QUESTION :
             return {
                 ...state,
@@ -22,12 +22,12 @@ export default function users (state = {}, action) {
                     ...state[action.question.author],
                     questions: state[action.question.author].questions.concat([action.question.id])
                 }
-            }
+            };
         case ADD_USER :
             return {
                 ...state,
                 [action.user.id]: action.user
-            }
+            };
 
 
         default :
