@@ -36,3 +36,5 @@ export default function users (state = {}, action) {
             return state
     }
 }
+
+// credit to coworker at my company for helping me figure out spread operator notation for reducer returns
