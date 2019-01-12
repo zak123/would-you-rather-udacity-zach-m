@@ -19,6 +19,6 @@ export function saveQuestionAnswer(data)    {
     return _saveQuestionAnswer(data);
 }
 
-export function saveUser(data)    {
-    return _saveUser(data);
+export function saveUser(user)    {
+    return _saveUser(user);
 }

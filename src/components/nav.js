@@ -1,39 +1,51 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {withRouter } from 'react-router-dom';
+import { logout} from "../actions/loggedInUser";
 
-import {Navbar, NavItem, Nav} from "react-bootstrap";
+import {Navbar, NavItem, Nav, } from "react-bootstrap";
 
-const authLinks = () => {
-    return (
-        <Nav>
-            <NavItem eventKey={1} href="#">
-                Logout
-            </NavItem>
-            <NavItem eventKey={2} href="#">
-                Leaderboard
-            </NavItem>
+// const AuthLinks = (props) => {
+//     console.log(props.loggedInUser);
+//     return (
+//
+//     )
+// }
 
-        </Nav>
-    )
+class NavBar extends Component {
+
+    render() {
+
+        return (
+            <Navbar>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a onClick={() => this.props.history.push('/')}>Would you rather?</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                {this.props.loggedInUser !== null ?
+                    <Nav>
+                        <NavItem onClick={() => this.props.dispatch(logout(this.props.loggedInUser))}>
+                            Logout
+                        </NavItem>
+                            <NavItem onClick={() => this.props.history.push('/leaderboard')}>
+                                Leaderboard
+                            </NavItem>
+                        <NavItem onClick={() => console.log('hello!')}>
+                            Welcome, {this.props.loggedInUser}
+                        </NavItem>
+                </Nav> : null}
+            </Navbar>
+        )
+    }
+
 }
 
-const NavBar = (props) => {
-    return (
-        <Navbar>
-            <Navbar.Header>
-                <Navbar.Brand>
-                    <a href="#home">Would you rather?</a>
-                </Navbar.Brand>
-            </Navbar.Header>
-            {props.loggedInUser ? authLinks: null}
-        </Navbar>
-    )
-}
-
-function mapStateToProps({loggedInUser}) {
+function mapStateToProps({loggedInUser, users}) {
     return {
-        loggedInUser: loggedInUser !== null
+        loggedInUser: loggedInUser,
+        user: loggedInUser !== null ? users[loggedInUser] : null,
+        users: users
     }
 }
 

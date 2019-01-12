@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Dashboard from "./components/dashboard";
-import Login from "./components/login"
 import { connect } from 'react-redux';
 import {handleInitialData} from "./actions/shared";
 import './App.css';
 import NavBar from './components/nav';
+import PrivatePage from './components/privatePage';
+import Leaderboard from './components/leaderboard';
+import NotFound from './components/notFound';
 
 class App extends Component {
   componentDidMount() {
@@ -17,7 +19,9 @@ class App extends Component {
         <Fragment>
             <NavBar/>
           <Switch>
-              <Route path='/' component={Dashboard} />
+              <PrivatePage path='/' exact view={Dashboard} />
+              <PrivatePage path='/leaderboard' exact view={Leaderboard} />
+              <Route component={NotFound}/>
           </Switch>
         </Fragment>
 

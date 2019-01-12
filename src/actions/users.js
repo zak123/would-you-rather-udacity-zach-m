@@ -20,9 +20,10 @@ function addUser(user) {
     }
 }
 
-export function startAddUser(data) {
+export function startAddUser(user) {
+    console.log(user.avatarURL, user.name);
     return (dispatch) => {
-        return saveUser(data).then((user) => {
+        return saveUser(user).then((user) => {
             dispatch(addUser(user));
             dispatch(login(user.id));
         })

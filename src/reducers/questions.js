@@ -16,11 +16,9 @@ export default function questions (state = {}, action) {
         case ANSWER_POLL :
             return {
                 ...state,
-                [action.questionId]: {
-                    ...state[action.questionId],
-                    [action.answer]: {
-                        ...state[action.questionId][action.answer],
-                        results: state[action.questionId][action.answer].results.concat([action.loggedInUser])
+                [action.questionId]: {...state[action.questionId],
+                    [action.answer]: {...state[action.questionId][action.answer],
+                        results: state[action.questionId][action.answer].results.concat(action.loggedInUser)
 
                     }
                 }
@@ -30,3 +28,10 @@ export default function questions (state = {}, action) {
             return state
     }
 }
+
+//question
+///id
+///options
+//question
+///id
+///options

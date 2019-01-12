@@ -1,36 +1,67 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {User} from './user'
 import Login from './login';
+import { Media, Panel} from "react-bootstrap";
+import Question from "./question";
 
 
 class Dashboard extends Component {
 
     render() {
-        console.log(this.props);
+        console.log(this.props.unansweredQuestions);
+
+
 
 
         return (
             <div>
                 <div>
-                    <Login/>
-                </div>
-                <div>
-                {Object.keys(this.props.users).map((user) => (
-                    <User user={this.props.users[user]} questions={this.props.questions}/>
-                ))}
+                    {this.props.loggedInUser ? <WelcomePanel answeredQuestions={this.props.answeredQuestions} unansweredQuestions={this.props.unansweredQuestions}/> : <Login/>}
                 </div>
             </div>
         )
     }
 }
 
-function mapStateToProps ({ users, questions }) {
+const WelcomePanel = (props) => {
+    return (
+        <div>
+        <Panel style={{margin: 20}}>
+            <Panel.Heading>
+                Unanswered Questions
+            </Panel.Heading>
+            <Panel.Body>
+                {props.unansweredQuestions.map((id) =>
+                    <Question questionId={id} answered={false}/>
+                )}
+            </Panel.Body>
+        </Panel>
+        <Panel style={{margin: 20}}>
+            <Panel.Heading>
+                Answered Questions
+            </Panel.Heading>
+            <Panel.Body>
+                {props.answeredQuestions.map((id) =>
+                    <Question questionId={id} answered={true}/>
+                )}
+            </Panel.Body>
+        </Panel>
+        </div>
+    )
+}
 
+
+
+function mapStateToProps ({ users, questions, loggedInUser }) {
 
     return {
         users: users,
-        questions: questions
+        questions: questions,
+        loggedInUser: loggedInUser !== null,
+        answeredQuestions: Object.keys(questions).filter((key) => questions[key].optionOne.votes.includes(loggedInUser) || questions[key].optionTwo.votes.includes(loggedInUser))
+            .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+        unansweredQuestions: Object.keys(questions).filter((key) => !questions[key].optionOne.votes.includes(loggedInUser) && !questions[key].optionTwo.votes.includes(loggedInUser))
+            .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
 
     }
 }

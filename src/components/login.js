@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Panel, FormControl, Button, Row, Grid, Col, InputGroup } from "react-bootstrap";
+import { Panel, FormControl, Button, InputGroup } from "react-bootstrap";
 import {startAddUser} from "../actions/users";
-import Checkbox from "react-bootstrap/es/Checkbox";
+import User from "./user";
 
 
 class Login extends Component {
@@ -10,7 +10,6 @@ class Login extends Component {
     state = {
         name: '',
         avatarURL: '',
-        register: false,
     };
 
     handleChange = (event) => {
@@ -23,51 +22,46 @@ class Login extends Component {
         this.setState({
             avatarURL: event.target.value,
         })
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.dispatch(startAddUser(this.state.avatarURL, this.state.name))
     };
 
-    handleToggle = (event) => {
-        this.setState({
-            register: event.target.checked,
-        })
-    }
+    startSubmit = (event) => {
+        console.log(this.state.avatarURL, this.state.name);
+        if (this.state.avatarURL.length > 0 && this.state.name.length > 0) {
+            this.props.dispatch(startAddUser({avatarURL: this.state.avatarURL, name: this.state.name}))
+        } else {
+            window.alert('Please fill out all fields before registering');
+        }
+    };
 
     render() {
-
-        const RegisterForm = (
-            <div style={{maxWidth: 500}}>
-                <FormControl type={'text'} value={this.state.avatarURL} onChange={this.avatarChange.bind(this)} placeholder={'Enter Avatar URL'} />
-            </div>
-        );
-
         console.log(this.props);
         return (
             <Panel style={{margin: 20}}>
-                <Panel.Heading>Login</Panel.Heading>
+                <Panel.Heading>Register or select a profile</Panel.Heading>
                 <Panel.Body>
-                    {this.state.register ? RegisterForm : null}
+                    <div style={{maxWidth: 500}}>
+                        <FormControl type={'text'} value={this.state.avatarURL} onChange={this.avatarChange.bind(this)} placeholder={'Enter Avatar URL'} />
+                    </div>
                     <div style={{maxWidth: 500}}>
                         <InputGroup style={{marginTop: 10}}>
                             <FormControl type={'text'}  value={this.state.name} onChange={this.handleChange.bind(this)} placeholder={'Enter Username'} />
                             <InputGroup.Button>
-                                <Button onClick={this.handleSubmit}>
-                                    {this.state.register ? 'Signup' : 'Login'}
+                                <Button onClick={this.startSubmit}>
+                                    Submit
                                 </Button>
                             </InputGroup.Button>
                         </InputGroup>
                     </div>
-                        <div>
-                            <Checkbox checked={this.state.register} onChange={this.handleToggle}>
-                                Register
-                            </Checkbox>
-                        </div>
-
+                    <div>
+                        {Object.keys(this.props.usersLocal).map((user) => (
+                            <User user={this.props.usersLocal[user]} questions={this.props.questions} key={user}/>
+                        ))}
+                    </div>
                 </Panel.Body>
             </Panel>
+
+
+
         )
     }
 }
