@@ -25,7 +25,6 @@ class Login extends Component {
     };
 
     startSubmit = (event) => {
-        console.log(this.state.avatarURL, this.state.name);
         if (this.state.avatarURL.length > 0 && this.state.name.length > 0) {
             this.props.dispatch(startAddUser({avatarURL: this.state.avatarURL, name: this.state.name}))
         } else {
@@ -34,7 +33,6 @@ class Login extends Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <Panel style={{margin: 20}}>
                 <Panel.Heading>Register or select a profile</Panel.Heading>
@@ -54,7 +52,7 @@ class Login extends Component {
                     </div>
                     <div>
                         {Object.keys(this.props.usersLocal).map((user) => (
-                            <User user={this.props.usersLocal[user]} questions={this.props.questions} key={user}/>
+                            <User user={this.props.usersLocal[user]} questions={this.props.questions} leaderboard={false} key={user}/>
                         ))}
                     </div>
                 </Panel.Body>

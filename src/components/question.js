@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import {Panel, Button, Row} from 'react-bootstrap'
+import {Panel, Button} from 'react-bootstrap'
 import { connect } from 'react-redux'
+import {withRouter } from 'react-router-dom';
 
 import { startAddAnswer } from "../actions/questions";
 
 class Question extends Component {
 
      questionDetails = (id) => {
-        this.props.history.push('/question/' + id);
+        this.props.history.push('/questions/' + id);
      };
 
      startSubmit = (choice) => {
@@ -24,7 +25,6 @@ class Question extends Component {
         const question = this.props.questions[this.props.questionId];
 
         let selectedAnswer = '';
-        console.log('prop update', question);
         if (question.optionOne.votes.includes(this.props.loggedInUser)) {
             selectedAnswer = question.optionOne.text;
         } else if (question.optionTwo.votes.includes(this.props.loggedInUser)) {
@@ -80,7 +80,7 @@ function mapStateToProps({ questions, loggedInUser, users }) {
     }
 }
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));
 
 
 // "xj352vofupe1dqz9emx13r": {

@@ -27,7 +27,6 @@ function mapStateToProps ({loggedInUser }) {
 
     return {
         loggedInUser: loggedInUser
-
     }
 }
 export default connect(mapStateToProps)(PrivatePage)

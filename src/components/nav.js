@@ -31,7 +31,7 @@ class NavBar extends Component {
                             <NavItem onClick={() => this.props.history.push('/leaderboard')}>
                                 Leaderboard
                             </NavItem>
-                        <NavItem onClick={() => this.props.history.push('/submit')}>
+                        <NavItem onClick={() => this.props.history.push('/add')}>
                             Submit
                         </NavItem>
                         <NavItem onClick={() => console.log('hello!')}>

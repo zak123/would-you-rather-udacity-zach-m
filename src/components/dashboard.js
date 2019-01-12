@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Login from './login';
-import { Media, Panel} from "react-bootstrap";
+import { Panel} from "react-bootstrap";
 import Question from "./question";
 
 
 class Dashboard extends Component {
 
     render() {
-        console.log(this.props.unansweredQuestions);
-
-
-
-
         return (
             <div>
                 <div>

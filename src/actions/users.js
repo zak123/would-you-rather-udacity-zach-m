@@ -21,7 +21,6 @@ function addUser(user) {
 }
 
 export function startAddUser(user) {
-    console.log(user.avatarURL, user.name);
     return (dispatch) => {
         return saveUser(user).then((user) => {
             dispatch(addUser(user));

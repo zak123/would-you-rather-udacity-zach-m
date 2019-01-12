@@ -21,7 +21,6 @@ export function addQuestion(question) {
 
 
 export function answerPoll({loggedInUser, questionId, answer}) {
-    console.log(loggedInUser, questionId, answer);
     return {
         type: ANSWER_POLL,
         loggedInUser,
@@ -30,13 +29,11 @@ export function answerPoll({loggedInUser, questionId, answer}) {
     }
 }
 export function startAddQuestion(select1, select2) {
+    console.log(select1, select2);
     return (dispatch, getState) => {
-
         const { loggedInUser } = getState();
-
         return saveQuestion({select1, select2, author: loggedInUser})
             .then((question) => dispatch(addQuestion(question)));
-
     }
 }
 //export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
@@ -44,11 +41,10 @@ export function startAddQuestion(select1, select2) {
 export function startAddAnswer(questionId, answer) {
     return (dispatch, getState) => {
         const {loggedInUser} = getState();
-        const info = {loggedInUser, questionId, answer};
-        console.log(info);
-        dispatch(answerPoll(info));
+        const data = {loggedInUser, questionId, answer};
+        dispatch(answerPoll(data));
 
-        return saveQuestionAnswer(info)
+        return saveQuestionAnswer(data)
             .catch((e) => {
             console.error(e);
             })

@@ -8,8 +8,8 @@ const Leaderboard = (props) => {
         <Fragment>
             <div>
                 <h2>leaderboard</h2>
-                {Object.keys(props.users).map((user) => (
-                    <User user={props.users[user]} key={user.id}/>
+                {props.sortedIds.map((user) => (
+                    <User user={props.users[user]} leaderboard={true} key={user}/>
                 ))}
             </div>
         </Fragment>
@@ -19,6 +19,8 @@ const Leaderboard = (props) => {
 function mapStateToProps({users}) {
     return {
         users: users,
+        sortedIds: Object.keys(users)
+            .sort((x, y) => (Object.keys(users[y].answers).length + users[y].questions.length) - (Object.keys(users[x].answers).length + users[x].questions.length))
     }
 }
 

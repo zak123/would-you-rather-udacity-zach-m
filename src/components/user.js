@@ -10,7 +10,10 @@ class User extends Component {
         this.props.dispatch(login(id));
     };
 
+
     render() {
+        console.log(this.props.user);
+
         return (
             <Panel style={{margin: 20}} key={this.props.user.id}>
                 <Panel.Heading>{this.props.user.name}</Panel.Heading>
@@ -20,9 +23,15 @@ class User extends Component {
                             <img width={64} height={64} src={this.props.user.avatarURL} alt="thumbnail" />
                         </Media.Left>
                         <Media.Body>
-                            <Button onClick={(e) => this.startLogin(e, this.props.user.id)}>
-                                Login as {this.props.user.name}
-                            </Button>
+                            {this.props.leaderboard ?
+                                <div>
+                                    <h3>{this.props.user.questions.length} questions asked</h3>
+                                    <h3>{Object.keys(this.props.user.answers).length} questions answered</h3>
+                                </div> :
+                                <Button onClick={(e) => this.startLogin(e, this.props.user.id)}>
+                                    Login as {this.props.user.name}
+                                </Button>}
+
                         </Media.Body>
                     </Media>
                 </Panel.Body>

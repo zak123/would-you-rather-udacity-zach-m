@@ -11,10 +11,8 @@ export default function users (state = {}, action) {
         case ANSWER_POLL :
             return {
                 ...state,
-                [action.loggedInUser]: {
-                    ...state[action.loggedInUser],
-                    answers: {
-                        ...state[action.loggedInUser].answers,
+                [action.loggedInUser]: {...state[action.loggedInUser],
+                    answers: {...state[action.loggedInUser].answers,
                         [action.questionId]: action.answer
                     }
                 }

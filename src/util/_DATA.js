@@ -14,7 +14,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Chun-Li.png/220px-Chun-Li.png',
+    avatarURL: 'https://game.capcom.com/cfn/sfv/as/common/character/bustup/l/ryu.png?h=51778c13c01235d62adfa5eb90016638',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Chun-Li.png/220px-Chun-Li.png',
+    avatarURL: 'https://vignette.wikia.nocookie.net/streetfighter/images/b/b4/Kenrender.png/revision/latest/scale-to-width-down/350?cb=20170728171332',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -131,18 +131,18 @@ export function _getQuestions () {
   })
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
+function formatQuestion ({ select1, select2, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),
     author,
     optionOne: {
       votes: [],
-      text: optionOneText,
+      text: select1,
     },
     optionTwo: {
       votes: [],
-      text: optionTwoText,
+      text: select1,
     }
   }
 }
@@ -174,7 +174,6 @@ export function _saveQuestion (question) {
 export function _saveQuestionAnswer ({ loggedInUser, questionId, answer }) {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      console.log(loggedInUser);
       users = {
         ...users,
         [loggedInUser]: {
