@@ -32,7 +32,7 @@ const WelcomePanel = (props) => {
             </Panel.Heading>
             <Panel.Body>
                 {props.unansweredQuestions.map((id) =>
-                    <Question questionId={id} answered={false}/>
+                    <Question questionId={id} answered={false} key={id}/>
                 )}
             </Panel.Body>
         </Panel>
@@ -42,7 +42,7 @@ const WelcomePanel = (props) => {
             </Panel.Heading>
             <Panel.Body>
                 {props.answeredQuestions.map((id) =>
-                    <Question questionId={id} answered={true}/>
+                    <Question questionId={id} answered={true} key={id}/>
                 )}
             </Panel.Body>
         </Panel>

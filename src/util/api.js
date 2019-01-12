@@ -15,7 +15,7 @@ export function saveQuestion(data) {
     return _saveQuestion(data);
 }
 
-export function saveQuestionAnswer(data)    {
+export function saveQuestionAnswer(data)  {
     return _saveQuestionAnswer(data);
 }
 

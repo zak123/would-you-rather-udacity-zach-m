@@ -1,8 +1,10 @@
 import { RECEIVE_QUESTIONS, ADD_QUESTION, ANSWER_POLL } from "../actions/questions";
 
 export default function questions (state = {}, action) {
+    console.log('action' + action.type);
     switch(action.type) {
         case RECEIVE_QUESTIONS :
+            console.log('testing');
             return {
                 ...state,
                 ...action.questions
@@ -14,12 +16,12 @@ export default function questions (state = {}, action) {
 
             };
         case ANSWER_POLL :
+            console.log(state);
             return {
                 ...state,
                 [action.questionId]: {...state[action.questionId],
                     [action.answer]: {...state[action.questionId][action.answer],
-                        results: state[action.questionId][action.answer].results.concat(action.loggedInUser)
-
+                        votes: state[action.questionId][action.answer].votes.concat([action.loggedInUser])
                     }
                 }
             };

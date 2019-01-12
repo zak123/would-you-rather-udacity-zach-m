@@ -20,22 +20,7 @@ const PrivatePage = ((props) => {
 
 // credit: https://tylermcginnis.com/react-router-protected-routes-authentication/
 //
-// class PrivatePage extends Component {
-//     render() {
-//         let loggedInUser = this.props.loggedInUser;
-//         console.log('private route: ', this.props.loggedInUser);
-//         return (
-//             <Route {...props} render={(viewProps) => (
-//                 <Fragment>
-//                     {loggedInUser ? <View {...viewProps} /> : <Login/>}
-//                 </Fragment>
-//
-//             )}/>
-//
-//         )
-//     }
-//
-// };
+
 
 function mapStateToProps ({loggedInUser }) {
 

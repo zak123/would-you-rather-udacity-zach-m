@@ -2,13 +2,19 @@ import React, { Component } from 'react'
 import {Panel, Button, Row} from 'react-bootstrap'
 import { connect } from 'react-redux'
 
- class Question extends Component {
+import { startAddAnswer } from "../actions/questions";
+
+class Question extends Component {
 
      questionDetails = (id) => {
         this.props.history.push('/question/' + id);
      };
 
      startSubmit = (choice) => {
+         console.log(this.props.users[this.props.loggedInUser].id);
+        this.props.dispatch(startAddAnswer(this.props.questions[this.props.questionId].id, choice)).then(() => {
+            console.log('success');
+     })
 
      };
 
@@ -18,15 +24,12 @@ import { connect } from 'react-redux'
         const question = this.props.questions[this.props.questionId];
 
         let selectedAnswer = '';
-
-        if (this.props.answered) {
-            if (question.optionOne.votes.includes(this.props.loggedInUser)) {
-                selectedAnswer = question.optionOne.text;
-            } else if (question.optionTwo.votes.includes(this.props.loggedInUser)) {
-                selectedAnswer = question.optionTwo.text;
-            }
+        console.log('prop update', question);
+        if (question.optionOne.votes.includes(this.props.loggedInUser)) {
+            selectedAnswer = question.optionOne.text;
+        } else if (question.optionTwo.votes.includes(this.props.loggedInUser)) {
+            selectedAnswer = question.optionTwo.text;
         }
-
 
 
 
@@ -38,7 +41,7 @@ import { connect } from 'react-redux'
                 <Panel.Body>
                     <div style={{margin: 10}}>
                     {
-                        this.props.answered
+                        selectedAnswer.length > 0
                             ?
                             <div>
                                 <h2>You answered: {selectedAnswer}</h2>
@@ -46,10 +49,10 @@ import { connect } from 'react-redux'
                             :
                             <div>
                                 <h2>Would you rather...</h2>
-                                <Button style={{margin: 5}}>
+                                <Button style={{margin: 5}} onClick={() => this.startSubmit('optionOne')}>
                                     {question.optionOne.text}
                                 </Button>
-                                <Button style={{margin: 5}}>
+                                <Button style={{margin: 5}} onClick={() => this.startSubmit('optionTwo')}>
                                     {question.optionTwo.text}
                                 </Button>
                             </div>
@@ -66,13 +69,14 @@ import { connect } from 'react-redux'
     }
 }
 
-function mapStateToProps({ questions, loggedInUser, }) {
+function mapStateToProps({ questions, loggedInUser, users }) {
 
 
 
     return {
         questions: questions,
-        loggedInUser: loggedInUser
+        loggedInUser: loggedInUser,
+        users: users
     }
 }
 

@@ -11,14 +11,20 @@ export default function users (state = {}, action) {
         case ANSWER_POLL :
             return {
                 ...state,
-                [action.loggedInUser] : {
-
+                [action.loggedInUser]: {
+                    ...state[action.loggedInUser],
+                    answers: {
+                        ...state[action.loggedInUser].answers,
+                        [action.questionId]: action.answer
+                    }
                 }
+
             };
         case ADD_QUESTION :
             return {
                 ...state,
-                [action.question.author]: {...state[action.question.author], questions: state[action.question.author].questions.concat([action.question.id])
+                [action.question.author]: {...state[action.question.author],
+                questions: state[action.question.author].questions.concat([action.question.id])
                 }
             };
         case ADD_USER :

@@ -20,18 +20,18 @@ export function addQuestion(question) {
 
 
 
-export function startAnswerPoll({user, questionId, answer}) {
+export function answerPoll({loggedInUser, questionId, answer}) {
+    console.log(loggedInUser, questionId, answer);
     return {
         type: ANSWER_POLL,
-        user,
+        loggedInUser,
         questionId,
         answer
     }
 }
-
-export function startAddQuestion(data) {
+export function startAddQuestion(select1, select2) {
     return (dispatch, getState) => {
-        const { select1, select2 } = data;
+
         const { loggedInUser } = getState();
 
         return saveQuestion({select1, select2, author: loggedInUser})
@@ -39,16 +39,19 @@ export function startAddQuestion(data) {
 
     }
 }
+//export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
 
 export function startAddAnswer(questionId, answer) {
-    return (getState, dispatch) => {
-        const loggedInUser = { getState };
+    return (dispatch, getState) => {
+        const {loggedInUser} = getState();
+        const info = {loggedInUser, questionId, answer};
+        console.log(info);
+        dispatch(answerPoll(info));
 
-        dispatch(startAnswerPoll({loggedInUser, questionId, answer}));
-
-        return saveQuestionAnswer({loggedInUser, questionId, answer}).catch((e) => {
-            console.log('error?', e);
-        })
+        return saveQuestionAnswer(info)
+            .catch((e) => {
+            console.error(e);
+            })
 
     }
 }

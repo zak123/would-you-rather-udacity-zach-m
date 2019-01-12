@@ -121,13 +121,13 @@ function generateUID () {
 
 export function _getUsers () {
   return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
+    setTimeout(() => res({...users}), 250)
   })
 }
 
 export function _getQuestions () {
   return new Promise((res, rej) => {
-    setTimeout(() => res({...questions}), 1000)
+    setTimeout(() => res({...questions}), 250)
   })
 }
 
@@ -171,33 +171,34 @@ export function _saveQuestion (question) {
   })
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+export function _saveQuestionAnswer ({ loggedInUser, questionId, answer }) {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      console.log(loggedInUser);
       users = {
         ...users,
-        [authedUser]: {
-          ...users[authedUser],
+        [loggedInUser]: {
+          ...users[loggedInUser],
           answers: {
-            ...users[authedUser].answers,
-            [qid]: answer
+            ...users[loggedInUser].answers,
+            [questionId]: answer
           }
         }
       }
 
       questions = {
         ...questions,
-        [qid]: {
-          ...questions[qid],
+        [questionId]: {
+          ...questions[questionId],
           [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
+            ...questions[questionId][answer],
+            votes: questions[questionId][answer].votes.concat([loggedInUser])
           }
         }
       }
 
       res()
-    }, 500)
+    }, 100)
   })
 }
 

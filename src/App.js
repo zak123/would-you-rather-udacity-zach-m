@@ -21,6 +21,7 @@ class App extends Component {
           <Switch>
               <PrivatePage path='/' exact view={Dashboard} />
               <PrivatePage path='/leaderboard' exact view={Leaderboard} />
+              {/*<PrivatePage path='/submit' exact view={} />*/}
               <Route component={NotFound}/>
           </Switch>
         </Fragment>
