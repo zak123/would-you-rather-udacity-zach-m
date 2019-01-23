@@ -142,7 +142,7 @@ function formatQuestion ({ select1, select2, author }) {
     },
     optionTwo: {
       votes: [],
-      text: select1,
+      text: select2,
     }
   }
 }
